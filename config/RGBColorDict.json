@@ -1,0 +1,20 @@
+{
+    "Chating": [145, 18, 171],
+    "Listening": [249, 174, 83],
+    "Noteing": [219, 105, 171],
+    "Playing": [212, 5, 97],
+    "Reading": [254, 212, 21],
+    "Thinking": [28, 79, 227],
+    "Watching": [143, 96, 102],
+    "Writting": [206, 187, 41],
+    "eat": [172, 178, 221],
+    "make_note": [219, 228, 196],
+    "sit_hand_not_on_face": [231, 61, 180],
+    "sit_hand_on_face": [66, 182, 105],
+    "sit_head_down": [206, 149, 218],
+    "sit_turn_left": [23, 209, 202],
+    "sit_turn_right": [202, 7, 230],
+    "sleep": [31, 162, 60],
+    "use_computer": [110, 67, 207],
+    "use_phone": [175, 180, 60]
+}

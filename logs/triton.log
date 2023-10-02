@@ -1,0 +1,458 @@
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 23.07 (build 64724866)
+Triton Server Version 2.36.0
+
+Copyright (c) 2018-2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I1002 10:50:20.557445 1 libtorch.cc:2507] TRITONBACKEND_Initialize: pytorch
+I1002 10:50:20.557503 1 libtorch.cc:2517] Triton TRITONBACKEND API version: 1.13
+I1002 10:50:20.557507 1 libtorch.cc:2523] 'pytorch' TRITONBACKEND API version: 1.13
+I1002 10:50:22.232531 1 pinned_memory_manager.cc:241] Pinned memory pool is created at '0x205000000' with size 268435456
+I1002 10:50:22.232589 1 cuda_memory_manager.cc:107] CUDA memory pool is created on device 0 with size 67108864
+I1002 10:50:22.235603 1 model_lifecycle.cc:462] loading: classnet:1
+I1002 10:50:22.235654 1 model_lifecycle.cc:462] loading: classnet:2
+I1002 10:50:22.236539 1 tensorrt.cc:65] TRITONBACKEND_Initialize: tensorrt
+I1002 10:50:22.236564 1 tensorrt.cc:75] Triton TRITONBACKEND API version: 1.13
+I1002 10:50:22.236566 1 tensorrt.cc:81] 'tensorrt' TRITONBACKEND API version: 1.13
+I1002 10:50:22.236569 1 tensorrt.cc:105] backend configuration:
+{"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}}
+I1002 10:50:22.270143 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: classnet (version 2)
+I1002 10:50:22.270150 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: classnet (version 1)
+I1002 10:50:22.270735 1 logging.cc:46] The logger passed into createInferRuntime differs from one already provided for an existing builder, runtime, or refitter. Uses of the global logger, returned by nvinfer1::getLogger(), will return the existing value.
+I1002 10:50:22.939831 1 tensorrt.cc:265] TRITONBACKEND_ModelFinalize: delete model state
+E1002 10:50:22.940048 1 model_lifecycle.cc:626] failed to load 'classnet' version 1: Internal: unable to load plan file to auto complete config: /models/classnet/1/model.plan
+I1002 10:50:23.486923 1 logging.cc:46] Loaded engine size: 203 MiB
+I1002 10:50:23.617269 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +198, now: CPU 0, GPU 198 (MiB)
+W1002 10:50:23.630674 1 model_state.cc:530] The specified dimensions in model config for classnet hints that batching is unavailable
+I1002 10:50:23.644566 1 tensorrt.cc:288] TRITONBACKEND_ModelInstanceInitialize: classnet_0 (GPU device 0)
+I1002 10:50:23.863609 1 logging.cc:46] Loaded engine size: 203 MiB
+I1002 10:50:23.928432 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +198, now: CPU 0, GPU 198 (MiB)
+I1002 10:50:23.949171 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +102, now: CPU 0, GPU 300 (MiB)
+W1002 10:50:23.949216 1 logging.cc:43] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+I1002 10:50:23.950726 1 instance_state.cc:188] Created instance classnet_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I1002 10:50:23.951428 1 model_lifecycle.cc:755] failed to load 'classnet'
+I1002 10:50:23.951542 1 server.cc:604] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I1002 10:50:23.951592 1 server.cc:631] 
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend  | Path                                                      | Config                                                                                                                                                        |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| pytorch  | /opt/tritonserver/backends/pytorch/libtriton_pytorch.so   | {}                                                                                                                                                            |
+| tensorrt | /opt/tritonserver/backends/tensorrt/libtriton_tensorrt.so | {"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}} |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 10:50:23.951597 1 tensorrt.cc:344] TRITONBACKEND_ModelInstanceFinalize: delete instance state
+I1002 10:50:23.951630 1 server.cc:674] 
++----------+---------+--------------------------------------------------------------------------------------------------------+
+| Model    | Version | Status                                                                                                 |
++----------+---------+--------------------------------------------------------------------------------------------------------+
+| classnet | 1       | UNAVAILABLE: Internal: unable to load plan file to auto complete config: /models/classnet/1/model.plan |
+| classnet | 2       | UNLOADING                                                                                              |
++----------+---------+--------------------------------------------------------------------------------------------------------+
+
+I1002 10:50:23.952818 1 tensorrt.cc:265] TRITONBACKEND_ModelFinalize: delete model state
+I1002 10:50:23.965538 1 model_lifecycle.cc:608] successfully unloaded 'classnet' version 2
+I1002 10:50:24.022843 1 metrics.cc:810] Collecting metrics for GPU 0: NVIDIA GeForce RTX 3080 Ti Laptop GPU
+I1002 10:50:24.022988 1 metrics.cc:703] Collecting CPU metrics
+I1002 10:50:24.023131 1 tritonserver.cc:2415] 
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                           |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                                          |
+| server_version                   | 2.36.0                                                                                                                                                                                                          |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data parameters statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                                         |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                                       |
+| strict_model_config              | 0                                                                                                                                                                                                               |
+| rate_limit                       | OFF                                                                                                                                                                                                             |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                                       |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                                        |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                             |
+| strict_readiness                 | 1                                                                                                                                                                                                               |
+| exit_timeout                     | 30                                                                                                                                                                                                              |
+| cache_enabled                    | 0                                                                                                                                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 10:50:24.023146 1 server.cc:305] Waiting for in-flight requests to complete.
+I1002 10:50:24.023150 1 server.cc:321] Timeout 30: Found 0 model versions that have in-flight inferences
+I1002 10:50:24.023153 1 server.cc:336] All models are stopped, unloading models
+I1002 10:50:24.023155 1 server.cc:343] Timeout 30: Found 0 live models and 0 in-flight non-inference requests
+error: creating server: Internal - failed to load all models
+W1002 10:50:25.026967 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 23.07 (build 64724866)
+Triton Server Version 2.36.0
+
+Copyright (c) 2018-2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I1002 10:51:17.460499 1 libtorch.cc:2507] TRITONBACKEND_Initialize: pytorch
+I1002 10:51:17.460538 1 libtorch.cc:2517] Triton TRITONBACKEND API version: 1.13
+I1002 10:51:17.460542 1 libtorch.cc:2523] 'pytorch' TRITONBACKEND API version: 1.13
+I1002 10:51:19.031532 1 pinned_memory_manager.cc:241] Pinned memory pool is created at '0x205000000' with size 268435456
+I1002 10:51:19.032843 1 cuda_memory_manager.cc:107] CUDA memory pool is created on device 0 with size 67108864
+I1002 10:51:19.036551 1 model_lifecycle.cc:462] loading: classnet:2
+I1002 10:51:19.038072 1 tensorrt.cc:65] TRITONBACKEND_Initialize: tensorrt
+I1002 10:51:19.038091 1 tensorrt.cc:75] Triton TRITONBACKEND API version: 1.13
+I1002 10:51:19.038093 1 tensorrt.cc:81] 'tensorrt' TRITONBACKEND API version: 1.13
+I1002 10:51:19.038095 1 tensorrt.cc:105] backend configuration:
+{"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}}
+I1002 10:51:19.068489 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: classnet (version 2)
+I1002 10:51:19.905121 1 logging.cc:46] Loaded engine size: 203 MiB
+I1002 10:51:20.034677 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +198, now: CPU 0, GPU 198 (MiB)
+W1002 10:51:20.040305 1 model_state.cc:530] The specified dimensions in model config for classnet hints that batching is unavailable
+I1002 10:51:20.055331 1 tensorrt.cc:288] TRITONBACKEND_ModelInstanceInitialize: classnet_0 (GPU device 0)
+I1002 10:51:20.182650 1 logging.cc:46] Loaded engine size: 203 MiB
+I1002 10:51:20.262135 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +198, now: CPU 0, GPU 198 (MiB)
+I1002 10:51:20.277950 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +102, now: CPU 0, GPU 300 (MiB)
+W1002 10:51:20.277989 1 logging.cc:43] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+I1002 10:51:20.279984 1 instance_state.cc:188] Created instance classnet_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I1002 10:51:20.280951 1 model_lifecycle.cc:817] successfully loaded 'classnet'
+I1002 10:51:20.281056 1 server.cc:604] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I1002 10:51:20.281113 1 server.cc:631] 
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend  | Path                                                      | Config                                                                                                                                                        |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| pytorch  | /opt/tritonserver/backends/pytorch/libtriton_pytorch.so   | {}                                                                                                                                                            |
+| tensorrt | /opt/tritonserver/backends/tensorrt/libtriton_tensorrt.so | {"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}} |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 10:51:20.281301 1 server.cc:674] 
++----------+---------+--------+
+| Model    | Version | Status |
++----------+---------+--------+
+| classnet | 2       | READY  |
++----------+---------+--------+
+
+I1002 10:51:20.358990 1 metrics.cc:810] Collecting metrics for GPU 0: NVIDIA GeForce RTX 3080 Ti Laptop GPU
+I1002 10:51:20.359177 1 metrics.cc:703] Collecting CPU metrics
+I1002 10:51:20.359616 1 tritonserver.cc:2415] 
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                           |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                                          |
+| server_version                   | 2.36.0                                                                                                                                                                                                          |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data parameters statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                                         |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                                       |
+| strict_model_config              | 0                                                                                                                                                                                                               |
+| rate_limit                       | OFF                                                                                                                                                                                                             |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                                       |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                                        |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                             |
+| strict_readiness                 | 1                                                                                                                                                                                                               |
+| exit_timeout                     | 30                                                                                                                                                                                                              |
+| cache_enabled                    | 0                                                                                                                                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 10:51:20.376454 1 grpc_server.cc:2451] Started GRPCInferenceService at 0.0.0.0:8001
+I1002 10:51:20.377236 1 http_server.cc:3558] Started HTTPService at 0.0.0.0:8000
+I1002 10:51:20.420273 1 http_server.cc:187] Started Metrics Service at 0.0.0.0:8002
+W1002 10:51:21.363458 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1002 10:51:22.363771 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1002 10:51:23.367837 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+Signal (15) received.
+I1002 10:54:25.033036 1 server.cc:305] Waiting for in-flight requests to complete.
+I1002 10:54:25.033053 1 server.cc:321] Timeout 30: Found 0 model versions that have in-flight inferences
+I1002 10:54:25.033161 1 server.cc:336] All models are stopped, unloading models
+I1002 10:54:25.033177 1 server.cc:343] Timeout 30: Found 1 live models and 0 in-flight non-inference requests
+I1002 10:54:25.033279 1 tensorrt.cc:344] TRITONBACKEND_ModelInstanceFinalize: delete instance state
+I1002 10:54:25.035473 1 tensorrt.cc:265] TRITONBACKEND_ModelFinalize: delete model state
+I1002 10:54:25.048401 1 model_lifecycle.cc:608] successfully unloaded 'classnet' version 2
+I1002 10:54:26.033370 1 server.cc:343] Timeout 29: Found 0 live models and 0 in-flight non-inference requests
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 23.07 (build 64724866)
+Triton Server Version 2.36.0
+
+Copyright (c) 2018-2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I1002 11:12:39.934044 1 libtorch.cc:2507] TRITONBACKEND_Initialize: pytorch
+I1002 11:12:39.934120 1 libtorch.cc:2517] Triton TRITONBACKEND API version: 1.13
+I1002 11:12:39.934123 1 libtorch.cc:2523] 'pytorch' TRITONBACKEND API version: 1.13
+I1002 11:12:41.917120 1 pinned_memory_manager.cc:241] Pinned memory pool is created at '0x205000000' with size 268435456
+I1002 11:12:41.917891 1 cuda_memory_manager.cc:107] CUDA memory pool is created on device 0 with size 67108864
+I1002 11:12:41.924803 1 model_lifecycle.cc:462] loading: classnet:2
+I1002 11:12:41.927087 1 tensorrt.cc:65] TRITONBACKEND_Initialize: tensorrt
+I1002 11:12:41.927115 1 tensorrt.cc:75] Triton TRITONBACKEND API version: 1.13
+I1002 11:12:41.927118 1 tensorrt.cc:81] 'tensorrt' TRITONBACKEND API version: 1.13
+I1002 11:12:41.927120 1 tensorrt.cc:105] backend configuration:
+{"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}}
+I1002 11:12:41.971414 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: classnet (version 2)
+I1002 11:12:42.833731 1 logging.cc:46] Loaded engine size: 203 MiB
+I1002 11:12:42.941759 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +198, now: CPU 0, GPU 198 (MiB)
+W1002 11:12:42.942621 1 model_state.cc:530] The specified dimensions in model config for classnet hints that batching is unavailable
+I1002 11:12:42.956201 1 tensorrt.cc:288] TRITONBACKEND_ModelInstanceInitialize: classnet_0 (GPU device 0)
+I1002 11:12:43.039847 1 logging.cc:46] Loaded engine size: 203 MiB
+I1002 11:12:43.103164 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +198, now: CPU 0, GPU 198 (MiB)
+I1002 11:12:43.111484 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +102, now: CPU 0, GPU 300 (MiB)
+W1002 11:12:43.111518 1 logging.cc:43] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+I1002 11:12:43.112886 1 instance_state.cc:188] Created instance classnet_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I1002 11:12:43.113379 1 model_lifecycle.cc:817] successfully loaded 'classnet'
+I1002 11:12:43.113455 1 server.cc:604] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I1002 11:12:43.113502 1 server.cc:631] 
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend  | Path                                                      | Config                                                                                                                                                        |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| pytorch  | /opt/tritonserver/backends/pytorch/libtriton_pytorch.so   | {}                                                                                                                                                            |
+| tensorrt | /opt/tritonserver/backends/tensorrt/libtriton_tensorrt.so | {"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}} |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 11:12:43.113519 1 server.cc:674] 
++----------+---------+--------+
+| Model    | Version | Status |
++----------+---------+--------+
+| classnet | 2       | READY  |
++----------+---------+--------+
+
+I1002 11:12:43.159065 1 metrics.cc:810] Collecting metrics for GPU 0: NVIDIA GeForce RTX 3080 Ti Laptop GPU
+I1002 11:12:43.159202 1 metrics.cc:703] Collecting CPU metrics
+I1002 11:12:43.159337 1 tritonserver.cc:2415] 
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                           |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                                          |
+| server_version                   | 2.36.0                                                                                                                                                                                                          |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data parameters statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                                         |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                                       |
+| strict_model_config              | 0                                                                                                                                                                                                               |
+| rate_limit                       | OFF                                                                                                                                                                                                             |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                                       |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                                        |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                             |
+| strict_readiness                 | 1                                                                                                                                                                                                               |
+| exit_timeout                     | 30                                                                                                                                                                                                              |
+| cache_enabled                    | 0                                                                                                                                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 11:12:43.171234 1 grpc_server.cc:2451] Started GRPCInferenceService at 0.0.0.0:8001
+I1002 11:12:43.171408 1 http_server.cc:3558] Started HTTPService at 0.0.0.0:8000
+I1002 11:12:43.213029 1 http_server.cc:187] Started Metrics Service at 0.0.0.0:8002
+W1002 11:12:44.162043 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1002 11:12:45.162492 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1002 11:12:46.167385 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+Signal (15) received.
+I1002 11:50:39.976683 1 server.cc:305] Waiting for in-flight requests to complete.
+I1002 11:50:39.980154 1 server.cc:321] Timeout 30: Found 0 model versions that have in-flight inferences
+I1002 11:50:39.990153 1 server.cc:336] All models are stopped, unloading models
+I1002 11:50:39.990332 1 server.cc:343] Timeout 30: Found 1 live models and 0 in-flight non-inference requests
+I1002 11:50:39.992613 1 tensorrt.cc:344] TRITONBACKEND_ModelInstanceFinalize: delete instance state
+I1002 11:50:40.041962 1 tensorrt.cc:265] TRITONBACKEND_ModelFinalize: delete model state
+I1002 11:50:40.162145 1 model_lifecycle.cc:608] successfully unloaded 'classnet' version 2
+I1002 11:50:40.990465 1 server.cc:343] Timeout 29: Found 0 live models and 0 in-flight non-inference requests
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 23.07 (build 64724866)
+Triton Server Version 2.36.0
+
+Copyright (c) 2018-2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I1002 12:47:55.449373 1 libtorch.cc:2507] TRITONBACKEND_Initialize: pytorch
+I1002 12:47:55.449423 1 libtorch.cc:2517] Triton TRITONBACKEND API version: 1.13
+I1002 12:47:55.449427 1 libtorch.cc:2523] 'pytorch' TRITONBACKEND API version: 1.13
+I1002 12:47:57.575644 1 pinned_memory_manager.cc:241] Pinned memory pool is created at '0x205000000' with size 268435456
+I1002 12:47:57.576192 1 cuda_memory_manager.cc:107] CUDA memory pool is created on device 0 with size 67108864
+I1002 12:47:57.581578 1 model_lifecycle.cc:462] loading: classnet:2
+I1002 12:47:57.583344 1 tensorrt.cc:65] TRITONBACKEND_Initialize: tensorrt
+I1002 12:47:57.583368 1 tensorrt.cc:75] Triton TRITONBACKEND API version: 1.13
+I1002 12:47:57.583371 1 tensorrt.cc:81] 'tensorrt' TRITONBACKEND API version: 1.13
+I1002 12:47:57.583373 1 tensorrt.cc:105] backend configuration:
+{"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}}
+I1002 12:47:57.621447 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: classnet (version 2)
+I1002 12:47:58.597067 1 logging.cc:46] Loaded engine size: 201 MiB
+I1002 12:47:58.725273 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +195, now: CPU 0, GPU 195 (MiB)
+W1002 12:47:58.738466 1 model_state.cc:530] The specified dimensions in model config for classnet hints that batching is unavailable
+I1002 12:47:58.756235 1 tensorrt.cc:288] TRITONBACKEND_ModelInstanceInitialize: classnet_0 (GPU device 0)
+I1002 12:47:58.959449 1 logging.cc:46] Loaded engine size: 201 MiB
+I1002 12:47:59.023157 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +195, now: CPU 0, GPU 195 (MiB)
+I1002 12:47:59.041197 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +89, now: CPU 0, GPU 284 (MiB)
+W1002 12:47:59.041240 1 logging.cc:43] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+I1002 12:47:59.043063 1 instance_state.cc:188] Created instance classnet_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I1002 12:47:59.044014 1 model_lifecycle.cc:817] successfully loaded 'classnet'
+I1002 12:47:59.044256 1 server.cc:604] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I1002 12:47:59.044309 1 server.cc:631] 
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend  | Path                                                      | Config                                                                                                                                                        |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| pytorch  | /opt/tritonserver/backends/pytorch/libtriton_pytorch.so   | {}                                                                                                                                                            |
+| tensorrt | /opt/tritonserver/backends/tensorrt/libtriton_tensorrt.so | {"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}} |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 12:47:59.044506 1 server.cc:674] 
++----------+---------+--------+
+| Model    | Version | Status |
++----------+---------+--------+
+| classnet | 2       | READY  |
++----------+---------+--------+
+
+I1002 12:47:59.092277 1 metrics.cc:810] Collecting metrics for GPU 0: NVIDIA GeForce RTX 3080 Ti Laptop GPU
+I1002 12:47:59.092457 1 metrics.cc:703] Collecting CPU metrics
+I1002 12:47:59.092618 1 tritonserver.cc:2415] 
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                           |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                                          |
+| server_version                   | 2.36.0                                                                                                                                                                                                          |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data parameters statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                                         |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                                       |
+| strict_model_config              | 0                                                                                                                                                                                                               |
+| rate_limit                       | OFF                                                                                                                                                                                                             |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                                       |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                                        |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                             |
+| strict_readiness                 | 1                                                                                                                                                                                                               |
+| exit_timeout                     | 30                                                                                                                                                                                                              |
+| cache_enabled                    | 0                                                                                                                                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 12:47:59.106888 1 grpc_server.cc:2451] Started GRPCInferenceService at 0.0.0.0:8001
+I1002 12:47:59.107485 1 http_server.cc:3558] Started HTTPService at 0.0.0.0:8000
+I1002 12:47:59.149208 1 http_server.cc:187] Started Metrics Service at 0.0.0.0:8002
+W1002 12:48:00.095335 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1002 12:48:01.095764 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1002 12:48:02.097710 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+time="2023-10-02T21:17:43+08:00" level=error msg="error waiting for container: "
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 23.07 (build 64724866)
+Triton Server Version 2.36.0
+
+Copyright (c) 2018-2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I1002 13:29:07.587168 1 libtorch.cc:2507] TRITONBACKEND_Initialize: pytorch
+I1002 13:29:07.587236 1 libtorch.cc:2517] Triton TRITONBACKEND API version: 1.13
+I1002 13:29:07.587240 1 libtorch.cc:2523] 'pytorch' TRITONBACKEND API version: 1.13
+I1002 13:29:09.371358 1 pinned_memory_manager.cc:241] Pinned memory pool is created at '0x205000000' with size 268435456
+I1002 13:29:09.371753 1 cuda_memory_manager.cc:107] CUDA memory pool is created on device 0 with size 67108864
+I1002 13:29:09.375822 1 model_lifecycle.cc:462] loading: classnet:2
+I1002 13:29:09.377760 1 tensorrt.cc:65] TRITONBACKEND_Initialize: tensorrt
+I1002 13:29:09.377782 1 tensorrt.cc:75] Triton TRITONBACKEND API version: 1.13
+I1002 13:29:09.377784 1 tensorrt.cc:81] 'tensorrt' TRITONBACKEND API version: 1.13
+I1002 13:29:09.377786 1 tensorrt.cc:105] backend configuration:
+{"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}}
+I1002 13:29:09.410704 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: classnet (version 2)
+I1002 13:29:10.210484 1 logging.cc:46] Loaded engine size: 201 MiB
+I1002 13:29:10.323658 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +195, now: CPU 0, GPU 195 (MiB)
+W1002 13:29:10.324669 1 model_state.cc:530] The specified dimensions in model config for classnet hints that batching is unavailable
+I1002 13:29:10.338662 1 tensorrt.cc:288] TRITONBACKEND_ModelInstanceInitialize: classnet_0 (GPU device 0)
+I1002 13:29:10.424370 1 logging.cc:46] Loaded engine size: 201 MiB
+I1002 13:29:10.489202 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +195, now: CPU 0, GPU 195 (MiB)
+I1002 13:29:10.514981 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +89, now: CPU 0, GPU 284 (MiB)
+W1002 13:29:10.515021 1 logging.cc:43] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+I1002 13:29:10.523492 1 instance_state.cc:188] Created instance classnet_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I1002 13:29:10.523950 1 model_lifecycle.cc:817] successfully loaded 'classnet'
+I1002 13:29:10.524048 1 server.cc:604] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I1002 13:29:10.524095 1 server.cc:631] 
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend  | Path                                                      | Config                                                                                                                                                        |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| pytorch  | /opt/tritonserver/backends/pytorch/libtriton_pytorch.so   | {}                                                                                                                                                            |
+| tensorrt | /opt/tritonserver/backends/tensorrt/libtriton_tensorrt.so | {"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}} |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 13:29:10.524122 1 server.cc:674] 
++----------+---------+--------+
+| Model    | Version | Status |
++----------+---------+--------+
+| classnet | 2       | READY  |
++----------+---------+--------+
+
+I1002 13:29:10.570992 1 metrics.cc:810] Collecting metrics for GPU 0: NVIDIA GeForce RTX 3080 Ti Laptop GPU
+I1002 13:29:10.571148 1 metrics.cc:703] Collecting CPU metrics
+I1002 13:29:10.571312 1 tritonserver.cc:2415] 
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                           |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                                          |
+| server_version                   | 2.36.0                                                                                                                                                                                                          |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data parameters statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                                         |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                                       |
+| strict_model_config              | 0                                                                                                                                                                                                               |
+| rate_limit                       | OFF                                                                                                                                                                                                             |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                                       |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                                        |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                             |
+| strict_readiness                 | 1                                                                                                                                                                                                               |
+| exit_timeout                     | 30                                                                                                                                                                                                              |
+| cache_enabled                    | 0                                                                                                                                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I1002 13:29:10.584533 1 grpc_server.cc:2451] Started GRPCInferenceService at 0.0.0.0:8001
+I1002 13:29:10.584707 1 http_server.cc:3558] Started HTTPService at 0.0.0.0:8000
+I1002 13:29:10.627268 1 http_server.cc:187] Started Metrics Service at 0.0.0.0:8002
+W1002 13:29:11.573936 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1002 13:29:12.574254 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1002 13:29:13.576572 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
