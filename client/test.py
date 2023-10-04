@@ -17,9 +17,9 @@ class InferenceClient:
         self.model_version = "2"
         self.input_name = "images"
         self.output_name = "output0"
-        self.confidence_thres = 0.5
+        self.confidence_thres = 0.3
         self.input_width, self.input_height = 640, 640
-        self.iou_thres = 0.5
+        self.iou_thres = 0.3
         self.classes = yaml.load(open("../../Student_Behavior-1/data.yaml"), Loader=yaml.FullLoader)["names"]
         # Generate a color palette for the classes
         self.color_palette = np.random.uniform(0, 255, size=(len(self.classes), 3))
