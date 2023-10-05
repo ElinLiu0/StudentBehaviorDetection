@@ -1,0 +1,8 @@
+runs/*/
+Student_Behavior-1/*/
+triton/*/
+yolov8l.pt
+yolov8n.pt
+yolov8l.plan
+yolov8l.onnx
+.ipynb_checkpoints/*/
