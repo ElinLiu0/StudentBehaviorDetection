@@ -14,35 +14,49 @@ This container image and its contents are governed by the NVIDIA Deep Learning C
 By pulling and using the container, you accept the terms and conditions of this license:
 https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 
-I1004 03:11:46.406132 1 libtorch.cc:2507] TRITONBACKEND_Initialize: pytorch
-I1004 03:11:46.406179 1 libtorch.cc:2517] Triton TRITONBACKEND API version: 1.13
-I1004 03:11:46.406183 1 libtorch.cc:2523] 'pytorch' TRITONBACKEND API version: 1.13
-I1004 03:11:47.557338 1 pinned_memory_manager.cc:241] Pinned memory pool is created at '0x205000000' with size 268435456
-I1004 03:11:47.558624 1 cuda_memory_manager.cc:107] CUDA memory pool is created on device 0 with size 67108864
-I1004 03:11:47.562888 1 model_lifecycle.cc:462] loading: classnet:2
-I1004 03:11:47.565023 1 tensorrt.cc:65] TRITONBACKEND_Initialize: tensorrt
-I1004 03:11:47.565054 1 tensorrt.cc:75] Triton TRITONBACKEND API version: 1.13
-I1004 03:11:47.565057 1 tensorrt.cc:81] 'tensorrt' TRITONBACKEND API version: 1.13
-I1004 03:11:47.565059 1 tensorrt.cc:105] backend configuration:
+I1028 01:44:07.693270 1 libtorch.cc:2507] TRITONBACKEND_Initialize: pytorch
+I1028 01:44:07.693336 1 libtorch.cc:2517] Triton TRITONBACKEND API version: 1.13
+I1028 01:44:07.693339 1 libtorch.cc:2523] 'pytorch' TRITONBACKEND API version: 1.13
+I1028 01:44:09.586554 1 pinned_memory_manager.cc:241] Pinned memory pool is created at '0x205000000' with size 268435456
+I1028 01:44:09.586998 1 cuda_memory_manager.cc:107] CUDA memory pool is created on device 0 with size 67108864
+I1028 01:44:09.593891 1 model_lifecycle.cc:462] loading: classnet:2
+I1028 01:44:09.593950 1 model_lifecycle.cc:462] loading: demo:1
+I1028 01:44:09.596174 1 tensorrt.cc:65] TRITONBACKEND_Initialize: tensorrt
+I1028 01:44:09.596198 1 tensorrt.cc:75] Triton TRITONBACKEND API version: 1.13
+I1028 01:44:09.596201 1 tensorrt.cc:81] 'tensorrt' TRITONBACKEND API version: 1.13
+I1028 01:44:09.596203 1 tensorrt.cc:105] backend configuration:
 {"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}}
-I1004 03:11:47.599973 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: classnet (version 2)
-I1004 03:11:48.502115 1 logging.cc:46] Loaded engine size: 224 MiB
-I1004 03:11:48.628981 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +219, now: CPU 0, GPU 219 (MiB)
-W1004 03:11:48.633155 1 model_state.cc:530] The specified dimensions in model config for classnet hints that batching is unavailable
-I1004 03:11:48.645190 1 tensorrt.cc:288] TRITONBACKEND_ModelInstanceInitialize: classnet_0 (GPU device 0)
-I1004 03:11:48.772957 1 logging.cc:46] Loaded engine size: 224 MiB
-I1004 03:11:48.853514 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +219, now: CPU 0, GPU 219 (MiB)
-I1004 03:11:48.865567 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +94, now: CPU 0, GPU 313 (MiB)
-W1004 03:11:48.865596 1 logging.cc:43] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
-I1004 03:11:48.869421 1 instance_state.cc:188] Created instance classnet_0 on GPU 0 with stream priority 0 and optimization profile default[0];
-I1004 03:11:48.870415 1 model_lifecycle.cc:817] successfully loaded 'classnet'
-I1004 03:11:48.870562 1 server.cc:604] 
+I1028 01:44:09.630621 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: classnet (version 2)
+I1028 01:44:09.630636 1 tensorrt.cc:222] TRITONBACKEND_ModelInitialize: demo (version 1)
+I1028 01:44:09.634611 1 logging.cc:46] The logger passed into createInferRuntime differs from one already provided for an existing builder, runtime, or refitter. Uses of the global logger, returned by nvinfer1::getLogger(), will return the existing value.
+I1028 01:44:10.590612 1 logging.cc:46] Loaded engine size: 224 MiB
+I1028 01:44:10.607817 1 logging.cc:46] Loaded engine size: 239 MiB
+I1028 01:44:10.759860 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +453, now: CPU 0, GPU 453 (MiB)
+I1028 01:44:10.759862 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +453, now: CPU 0, GPU 453 (MiB)
+W1028 01:44:10.760817 1 model_state.cc:530] The specified dimensions in model config for demo hints that batching is unavailable
+W1028 01:44:10.761534 1 model_state.cc:530] The specified dimensions in model config for classnet hints that batching is unavailable
+I1028 01:44:10.779890 1 tensorrt.cc:288] TRITONBACKEND_ModelInstanceInitialize: classnet_0 (GPU device 0)
+I1028 01:44:10.779906 1 tensorrt.cc:288] TRITONBACKEND_ModelInstanceInitialize: demo_0 (GPU device 0)
+I1028 01:44:10.868376 1 logging.cc:46] Loaded engine size: 224 MiB
+I1028 01:44:10.934562 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +219, now: CPU 0, GPU 219 (MiB)
+I1028 01:44:10.935404 1 logging.cc:46] The logger passed into createInferRuntime differs from one already provided for an existing builder, runtime, or refitter. Uses of the global logger, returned by nvinfer1::getLogger(), will return the existing value.
+I1028 01:44:10.942014 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +94, now: CPU 0, GPU 313 (MiB)
+W1028 01:44:10.942055 1 logging.cc:43] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+I1028 01:44:10.943407 1 instance_state.cc:188] Created instance classnet_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I1028 01:44:10.943874 1 model_lifecycle.cc:817] successfully loaded 'classnet'
+I1028 01:44:11.031979 1 logging.cc:46] Loaded engine size: 239 MiB
+I1028 01:44:11.106786 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +234, now: CPU 0, GPU 547 (MiB)
+I1028 01:44:11.112764 1 logging.cc:46] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +1, GPU +100, now: CPU 1, GPU 647 (MiB)
+W1028 01:44:11.112788 1 logging.cc:43] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage and speed up TensorRT initialization. See "Lazy Loading" section of CUDA documentation https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#lazy-loading
+I1028 01:44:11.113697 1 instance_state.cc:188] Created instance demo_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I1028 01:44:11.114202 1 model_lifecycle.cc:817] successfully loaded 'demo'
+I1028 01:44:11.114269 1 server.cc:604] 
 +------------------+------+
 | Repository Agent | Path |
 +------------------+------+
 +------------------+------+
 
-I1004 03:11:48.870614 1 server.cc:631] 
+I1028 01:44:11.114313 1 server.cc:631] 
 +----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Backend  | Path                                                      | Config                                                                                                                                                        |
 +----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -50,16 +64,17 @@ I1004 03:11:48.870614 1 server.cc:631]
 | tensorrt | /opt/tritonserver/backends/tensorrt/libtriton_tensorrt.so | {"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}} |
 +----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-I1004 03:11:48.870908 1 server.cc:674] 
+I1028 01:44:11.114348 1 server.cc:674] 
 +----------+---------+--------+
 | Model    | Version | Status |
 +----------+---------+--------+
 | classnet | 2       | READY  |
+| demo     | 1       | READY  |
 +----------+---------+--------+
 
-I1004 03:11:48.921248 1 metrics.cc:810] Collecting metrics for GPU 0: NVIDIA GeForce RTX 3080 Ti Laptop GPU
-I1004 03:11:48.921458 1 metrics.cc:703] Collecting CPU metrics
-I1004 03:11:48.921836 1 tritonserver.cc:2415] 
+I1028 01:44:11.155548 1 metrics.cc:810] Collecting metrics for GPU 0: NVIDIA GeForce RTX 3080 Ti Laptop GPU
+I1028 01:44:11.155683 1 metrics.cc:703] Collecting CPU metrics
+I1028 01:44:11.155799 1 tritonserver.cc:2415] 
 +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Option                           | Value                                                                                                                                                                                                           |
 +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -78,9 +93,9 @@ I1004 03:11:48.921836 1 tritonserver.cc:2415]
 | cache_enabled                    | 0                                                                                                                                                                                                               |
 +----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-I1004 03:11:48.936993 1 grpc_server.cc:2451] Started GRPCInferenceService at 0.0.0.0:8001
-I1004 03:11:48.938015 1 http_server.cc:3558] Started HTTPService at 0.0.0.0:8000
-I1004 03:11:48.979840 1 http_server.cc:187] Started Metrics Service at 0.0.0.0:8002
-W1004 03:11:49.927443 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
-W1004 03:11:50.927866 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
-W1004 03:11:51.930170 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+I1028 01:44:11.172914 1 grpc_server.cc:2451] Started GRPCInferenceService at 0.0.0.0:8001
+I1028 01:44:11.173078 1 http_server.cc:3558] Started HTTPService at 0.0.0.0:8000
+I1028 01:44:11.215925 1 http_server.cc:187] Started Metrics Service at 0.0.0.0:8002
+W1028 01:44:12.158579 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1028 01:44:13.158978 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000
+W1028 01:44:14.161375 1 metrics.cc:575] Unable to get power limit for GPU 0. Status:Success, value:0.000000

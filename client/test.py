@@ -8,19 +8,20 @@ import cv2 as cv
 import json
 import yaml
 import cv2
+import cProfile
 class InferenceClient:
     def __init__(self,ip,port) -> None:
         self.inferenceClient = httpclient.InferenceServerClient(
             f"{ip}:{port}", verbose=False, concurrency=1
         )
-        self.model_name = "classnet"
-        self.model_version = "2"
+        self.model_name = "demo"
+        self.model_version = "1"
         self.input_name = "images"
         self.output_name = "output0"
         self.confidence_thres = 0.3
         self.input_width, self.input_height = 640, 640
         self.iou_thres = 0.3
-        self.classes = yaml.load(open("../../Student_Behavior-1/data.yaml"), Loader=yaml.FullLoader)["names"]
+        self.classes = yaml.load(open("../config/demo.yaml"), Loader=yaml.FullLoader)["names"]
         # Generate a color palette for the classes
         self.color_palette = np.random.uniform(0, 255, size=(len(self.classes), 3))
     def draw_detections(self, img, box, score, class_id):
@@ -186,6 +187,7 @@ class InferenceClient:
         )
         # postprocess
         output = results.get_result().as_numpy(self.output_name)
+        print(output.shape)
         # postprocess
         output_image = self.postprocess(self.img, output)
         # save image
