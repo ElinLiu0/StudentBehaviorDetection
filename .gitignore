@@ -1,1 +1,16 @@
-./recordings/*/*.*
+# 忽略recordings目录下及其子目录下的所有文件
+**/recordings/**
+
+# 忽略.git目录下及其子目录下的所有文件
+**/\.git/**
+
+# 忽略.gitignore文件
+.gitignore
+
+# 忽略.DS_Store文件
+.DS_Store
+
+# 忽略.idea目录下及其子目录下的所有文件
+**/\.idea/**
+
+# 忽略.vscode目录下及其子目录下的所有文件
