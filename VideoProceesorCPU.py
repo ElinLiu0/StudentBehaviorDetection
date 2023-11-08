@@ -6,9 +6,9 @@ from hashlib import sha256
 import cv2
 import yaml
 import av
-import pymp
 from datetime import datetime
 import pandas as pd
+global detectionsTable
 class VideoProcessor:
     def __init__(self) -> None: 
         self.config = yaml.load(open("./config/demo.yaml"), Loader=yaml.FullLoader)
@@ -25,7 +25,6 @@ class VideoProcessor:
         self.inputWidth, self.inputHeight = self.config['inputWidth'],self.config['inputHeight']
         self.iouThres = self.config['iouThreshold']
         self.classes = self.config["names"]
-        self.detectionClasses,self.detectionConfidence,self.detectedBoxes = [],[],[]
         self.colorPalette = np.random.uniform(0, 255, size=(len(self.classes), 3))
         # create a FPS counter
         self.fps = 0
@@ -55,39 +54,26 @@ class VideoProcessor:
         return imageData
     def postprocess(self,inputFrame,output):
         output = np.transpose(np.squeeze(output[0]))
-        rows = output.shape[0]
-        boxes = pymp.shared.array((rows,4),dtype='int32')
-        scores = pymp.shared.array((rows),dtype='float32')
-        class_ids = pymp.shared.array((rows),dtype='int32')
-
+        df = pd.DataFrame(output)
         x_factor = self.imageWidth / self.inputWidth
         y_factor = self.imageHeight / self.inputHeight
 
-        try:
-            with pymp.Parallel(8) as p:
-                for i in p.range(rows):
-                    classes_scores = output[i][4:]
-                    maxConfidence = np.amax(classes_scores)
+        df['amax'] = np.amax(df.iloc[:,4:84],axis=1)
+        df['argmax'] = np.where(df.iloc[:,4:84]==df['amax'].values[:,None])[1]
+        df = df[df['amax'] > self.confidenceThres]
+        boxes = df.iloc[:,0:4].to_numpy()
+        scores = df['amax'].to_numpy()
+        class_ids = df['argmax'].to_numpy()
 
-                    if maxConfidence >= self.confidenceThres:
-                        classIndex = np.argmax(classes_scores)
+        # apply factor to boxes
+        boxes[:,0] = (boxes[:,0] - boxes[:,2]/2.0) * x_factor
+        boxes[:,1] = (boxes[:,1] - boxes[:,3]/2.0) * y_factor
+        boxes[:,2] = boxes[:,2] * x_factor
+        boxes[:,3] = boxes[:,3] * y_factor
 
-                        x,y,w,h = output[i][:4]
-
-                        left = int((x - w / 2) * x_factor)
-                        top = int((y - h / 2) * y_factor)
-                        width = int(w * x_factor)
-                        height = int(h * y_factor)
-
-                        class_ids[i] = classIndex
-                        scores[i] = maxConfidence
-                        boxes[i] = [left,top,width,height]
-        except Exception as e:
-            print(str(e))
-        # convert into numpy array
-        boxes = np.array(boxes,dtype='int32')
-        scores = np.array(scores,dtype='float32').squeeze()
-        class_ids = np.array(class_ids,dtype='int32').squeeze()
+        boxes = boxes.astype(np.int32)
+        scores = scores.astype(np.float32)
+        class_ids = class_ids.astype(np.int32)
         # Apply non-maximum suppression to filter out overlapping bounding boxes
         indices = cv2.dnn.NMSBoxes(boxes, scores, self.confidenceThres, self.iouThres)
         for i in indices:
@@ -97,13 +83,7 @@ class VideoProcessor:
             # update the detections table
             className = self.classes[class_id]
             
-            
-            # draw the detection on the frame
             self.drawDetections(inputFrame,box,score,class_id)
-            # append the detection to the table
-            self.detectionClasses.append(className)
-            self.detectionConfidence.append(score)
-            self.detectedBoxes.append(box)
         # calculate the FPS
         self.fpsCounter += 1
         elapsed = (datetime.now() - self.fpsTimer).total_seconds()
@@ -117,13 +97,7 @@ class VideoProcessor:
         cv2.putText(inputFrame, datetime.now().strftime("%Y %I:%M:%S%p"), (self.imageWidth - 150, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255),1, cv2.LINE_AA)
         return inputFrame
     def getPredictData(self):
-        self.detectionsTable = pd.DataFrame()
-        print(self.detectionClasses)
-        print(self.detectionConfidence)
-        print(self.detectedBoxes)
-        self.detectionsTable['Class'] = self.detectionClasses
-        self.detectionsTable['Confidence'] = self.detectionConfidence
-        self.detectionsTable['Box'] = self.detectedBoxes
+        print(self.detectionsTable)
         return self.detectionsTable
     def processing(self,frame):
         inputs,outputs = [],[]

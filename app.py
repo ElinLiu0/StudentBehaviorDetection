@@ -47,7 +47,7 @@ if startSavingButton:
                 pathlib.Path(f"./recordings/{teacherName}/{courseName}").mkdir(parents=True,exist_ok=True)
 time = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 videoWriter = av.open(f"./recordings/{teacherName}/{courseName}/{time}.mp4","w")
-videoOutputStream = videoWriter.add_stream("mpeg4",7)    
+videoOutputStream = videoWriter.add_stream("mpeg4",15)    
 
 def videoCallBack(frame:av.VideoFrame):
     try:
@@ -111,6 +111,7 @@ if uploadButton:
                                     length=file.stat().st_size
                                 )
                         except Exception as e:
+                            status.update(label="上传失败！",state="error",expanded=False)
                             sidebar.error("上传失败："+str(e))
                         st.write(f"上传完成：{file.name}")
                 status.update(label="上传完成！",state="complete",expanded=False)
