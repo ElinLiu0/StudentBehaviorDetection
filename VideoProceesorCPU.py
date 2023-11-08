@@ -8,7 +8,7 @@ import yaml
 import av
 from datetime import datetime
 import pandas as pd
-global detectionsTable
+from multiprocessing import Pool
 class VideoProcessor:
     def __init__(self) -> None: 
         self.config = yaml.load(open("./config/demo.yaml"), Loader=yaml.FullLoader)
@@ -80,8 +80,6 @@ class VideoProcessor:
             box = boxes[i]
             score = scores[i]
             class_id = class_ids[i]
-            # update the detections table
-            className = self.classes[class_id]
             
             self.drawDetections(inputFrame,box,score,class_id)
         # calculate the FPS
@@ -96,26 +94,23 @@ class VideoProcessor:
         # draw current time on the top right of frame
         cv2.putText(inputFrame, datetime.now().strftime("%Y %I:%M:%S%p"), (self.imageWidth - 150, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,255),1, cv2.LINE_AA)
         return inputFrame
-    def getPredictData(self):
-        print(self.detectionsTable)
-        return self.detectionsTable
-    def processing(self,frame):
+    def inference(self,frame):
         inputs,outputs = [],[]
+        inputs.append(httpclient.InferInput(self.inputName,frame.shape,"FP32"))
+        inputs[0].set_data_from_numpy(frame)
+        outputs.append(httpclient.InferRequestedOutput(self.outputName))
+        results = self.inferenceClient.async_infer(
+            model_name = self.modelName,
+            inputs = inputs,
+            outputs = outputs,
+            model_version = self.modelVersion,
+            request_id = sha256(str(random.random()).encode()).hexdigest()
+        )
+        output = results.get_result().as_numpy(self.outputName)
+        return output
+    def processing(self,frame):
         frame = frame.to_ndarray(format="bgr24")
         image_data = self.preprocess(frame)
-        inputs.append(httpclient.InferInput(self.inputName,image_data.shape,"FP32"))
-        inputs[0].set_data_from_numpy(image_data)
-        outputs.append(httpclient.InferRequestedOutput(self.outputName))
-        try:
-            results = self.inferenceClient.async_infer(
-                model_name = self.modelName,
-                inputs = inputs,
-                outputs = outputs,
-                model_version = self.modelVersion,
-                request_id = sha256(str(random.random()).encode()).hexdigest()
-            )
-            output = results.get_result().as_numpy(self.outputName)
-            outputFrame = self.postprocess(frame,output)
-            return av.VideoFrame.from_ndarray(outputFrame,format="bgr24")
-        except InferenceServerException as e:
-            return str(e)
+        output = self.inference(image_data)
+        outputFrame = self.postprocess(frame,output)
+        return av.VideoFrame.from_ndarray(outputFrame,format="bgr24")

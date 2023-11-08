@@ -6,7 +6,6 @@ import pathlib
 from datetime import datetime
 from VideoProceesorCPU import VideoProcessor
 import av
-import pandas as pd
 import minio
 processor = VideoProcessor()
 minioClient = minio.Minio(
