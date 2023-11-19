@@ -6,3 +6,4 @@ yolov8n.pt
 yolov8l.plan
 yolov8l.onnx
 .ipynb_checkpoints/*/
+Apps/*/
