@@ -1,0 +1,29 @@
+names:
+- eat
+- make_note
+- sit_hand_not_on_face
+- sit_hand_on_face
+- sit_head_down
+- sit_turn_left
+- sit_turn_right
+- sleep
+- use_computer
+- use_phone
+nc: 10
+roboflow:
+  license: CC BY 4.0
+  project: student_behavior
+  url: https://universe.roboflow.com/lambda98/student_behavior/dataset/1
+  version: 1
+  workspace: lambda98
+test: ../test/images
+train: Student_Behavior-1/train/images
+val: Student_Behavior-1/valid/images
+modelName : classnet
+modelVersion : '2'
+inputName : images
+outputName : output0
+confidenceThreshold : 0.5
+iouThreshold : 0.5
+inputWidth : 640
+inputHeight : 640
