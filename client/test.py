@@ -107,6 +107,7 @@ class InferenceClient:
 
         # Transpose and squeeze the output to match the expected shape
         outputs = np.transpose(np.squeeze(output[0]))
+        np.savetxt("output.txt",outputs)
 
         # Get the number of rows in the outputs array
         rows = outputs.shape[0]
@@ -146,9 +147,12 @@ class InferenceClient:
                 class_ids.append(class_id)
                 scores.append(max_score)
                 boxes.append([left, top, width, height])
-
+        np.savetxt("boxes.txt",boxes)
+        np.savetxt("scores.txt",scores)
+        np.savetxt("class_ids.txt",class_ids)
         # Apply non-maximum suppression to filter out overlapping bounding boxes
         indices = cv2.dnn.NMSBoxes(boxes, scores, self.confidence_thres, self.iou_thres)
+        np.savetxt("indices.txt",indices)
 
         # Iterate over the selected indices after non-maximum suppression
         for i in indices:
